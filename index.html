@@ -415,7 +415,8 @@ window.location.href =
 }
 loadItems();
 
-const bgm = document.getElementById("bgm");
+const bgm = document.querySelector("#bgm");
+bgm.volume = 1;
 
 window.addEventListener("click", function () {
     bgm.play().catch(function(err) {
