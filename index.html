@@ -169,7 +169,7 @@ color:#666;
 <video id="bg-video" autoplay muted loop playsinline preload="auto">
     <source src="ssstik.io_@saka_x11_1783779930311.mp4" type="video/mp4">
 </video>
-    <audio id="bgm" loop>
+    <audio id="bgm" controls loop>
     <source src="ssstik.io_1783782113757.mp3" type="audio/mpeg">
     </audio>
     
@@ -415,14 +415,8 @@ window.location.href =
 }
 loadItems();
 
-window.addEventListener("pointerdown", async function () {
-    const bgm = document.getElementById("bgm");
-
-    try {
-        await bgm.play();
-    } catch (e) {
-        console.log(e);
-    }
+window.addEventListener("click", function () {
+    document.getElementById("bgm").play();
 }, { once: true });
 
 </script>
