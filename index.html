@@ -14,12 +14,18 @@ font-family:Arial,sans-serif;
 }
 
 body{
-    background: url("file_00000000c0dc720cbae7d0a763844be1.png") no-repeat center center fixed;
-    background-size: cover;
-    background-position: center;
-background-attachment: fixed;
+    margin:0;
+    overflow-x:hidden;
 }
-
+#bg-video{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
 header{
 background:linear-gradient(90deg,#8b0000,#ff0000);
 color:white;
@@ -159,10 +165,13 @@ color:#666;
   </style>
   </head>
 <body>
-
+<video id="bg-video" autoplay muted loop playsinline>
+    <source src="ssstik.io_@saka_x11_17837779930311.mp4" type="video/mp4">
+</video>
+    
 <header>
-<h1>TOPUP GAME BY RULL STORE</h1>
-<p>HargaMurah • Pantas • Dipercayai</p>
+  <h1>TOPUP GAME BY RULL STORE</h1>
+  <p>HargaMurah • Pantas • Dipercayai</p>
 </header>
 
 <div class="banner">
