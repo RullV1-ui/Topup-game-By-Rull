@@ -384,16 +384,23 @@ alert("Sila pilih topup.");
 return;
 }
 
-alert(
-"✅ TEMPAHAN BERJAYA\n\n"+
-"Game : "+gameName[currentGame]+
-"\nUID : "+uid+
-(server?("\nServer : "+server):"")+
-"\nTopup : "+selectedItem+
-"\nHarga : "+selectedPrice+
-"\nBayaran : "+pay+
-(promo?("\nPromo : "+promo):"")+
-"\n\nTerima kasih kerana memilih TOPUP Di RULL STORE."
+const nombor = "60138267183";
+
+const mesej = `*TEMPAHAN TOPUP BARU*
+
+🎮 Game: ${gameName[currentGame]}
+🆔 UID: ${uid}
+${server ? `🌐 Server: ${server}` : ""}
+💎 Topup: ${selectedItem}
+💰 Harga: ${selectedPrice}
+💳 Bayaran: ${pay}
+${promo ? `🎁 Promo: ${promo}` : ""}
+
+Terima kasih kerana memilih TOPUP BY RULL.`;
+
+window.open(
+`https://wa.me/${nombor}?text=${encodeURIComponent(mesej)}`,
+"_blank"
 );
 
 }
