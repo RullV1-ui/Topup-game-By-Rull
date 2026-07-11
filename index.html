@@ -386,21 +386,18 @@ return;
 
 const nombor = "60138267183";
 
-const mesej = `*ASSLM RUL,NK TOPUP*
+let mesej =
+"*ASSLM RUL, NK TOPUP*\n\n" +
+"🎮 Game: " + gameName[currentGame] + "\n" +
+"🆔 UID: " + uid + "\n" +
+(server ? "🌐 Server: " + server + "\n" : "") +
+"💎 Topup: " + selectedItem + "\n" +
+"💰 Harga: " + selectedPrice + "\n" +
+"💳 Bayaran: " + pay + "\n" +
+(promo ? "🎁 Promo: " + promo + "\n" : "");
 
-🎮 Game: ${gameName[currentGame]}
-🆔 UID: ${uid}
-${server ? `🌐 Server: ${server}` : ""}
-💎 Topup: ${selectedItem}
-💰 Harga: ${selectedPrice}
-💳 Bayaran: ${pay}
-${promo ? `🎁 Promo: ${promo}` : ""}
-
-
-window.open(
-`https://wa.me/${nombor}?text=${encodeURIComponent(mesej)}`,
-"_blank"
-);
+window.location.href =
+"https://wa.me/" + nombor + "?text=" + encodeURIComponent(mesej);
 
 }
 
