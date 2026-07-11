@@ -256,7 +256,7 @@ let currentGame="ff";
 let selectedItem="";
 let selectedPrice="";
 
-const data=[
+const data={
 
 ff:[
 ["100💎","RM4"],
@@ -304,8 +304,11 @@ efootball:[
 ]
 
 };
-
-  :
+  const gameName = {
+  ff: "Free Fire",
+  ml: "Mobile Legends",
+  pubg: "PUBG Mobile",
+  efootball: "eFootball"
 };
 
 function changeGame(game,el){
