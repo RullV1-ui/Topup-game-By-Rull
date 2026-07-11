@@ -415,8 +415,14 @@ window.location.href =
 }
 loadItems();
 
-document.addEventListener("click", function () {
-    document.getElementById("bgm").play();
+window.addEventListener("pointerdown", async function () {
+    const bgm = document.getElementById("bgm");
+
+    try {
+        await bgm.play();
+    } catch (e) {
+        console.log(e);
+    }
 }, { once: true });
 
 </script>
