@@ -217,7 +217,7 @@ Harga Murah • Proses Pantas • LEGAL
 
 <input id="server" placeholder="Server ID (MLBB sahaja)">
 
- <label>🌎 Pilih Server</label>
+ <label id="regionLabel">🌍 Pilih Server</label>
 
 <select id="region" onchange="loadItems()">
     <option value="my">🇲🇾 Malaysia</option>
@@ -387,9 +387,22 @@ currentGame=game;
     const regionBox = document.getElementById("region").parentElement;
 
 if (game === "efootball") {
-    regionBox.style.display = "none";
+    regionBox.style.display = "block";
+
+    document.getElementById("regionLabel").innerText = "📱 Device Type";
+
+    document.getElementById("region").innerHTML = `
+        <option value="android">Android</option>
+    `;
 } else {
     regionBox.style.display = "block";
+
+    document.getElementById("regionLabel").innerText = "🌍 Pilih Server";
+
+    document.getElementById("region").innerHTML = `
+        <option value="my">🇲🇾 Malaysia</option>
+        <option value="id">🇮🇩 Indonesia</option>
+    `;
 }
 
 document.querySelectorAll(".game").forEach(x=>x.classList.remove("active"));
