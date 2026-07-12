@@ -449,11 +449,16 @@ function loadItems(){
         // Sembunyikan borang eFootball
         efootFields.style.display = "none";
 
-        document.getElementById("regionLabel").innerText = "🌍 Pilih Server";
-        document.getElementById("region").innerHTML = `
-            <option value="my">🇲🇾 Malaysia</option>
-            <option value="id">🇮🇩 Indonesia</option>
-        `;
+        document.getElementById("regionLabel").innerText = "🌎 Pilih Server";
+
+const region = document.getElementById("region");
+
+region.innerHTML = `
+<option value="my">🇲🇾 Malaysia</option>
+<option value="id">🇮🇩 Indonesia</option>
+`;
+
+region.value = "my";
     }
 
     document.querySelectorAll(".game").forEach(x => x.classList.remove("active"));
