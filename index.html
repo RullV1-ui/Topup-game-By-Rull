@@ -355,20 +355,20 @@ pubg: {
 },
 
 efootball: {
-    my: [
-        ["130 Coin","RM6"],
-        ["300 Coin","RM12"],
-        ["550 Coin","RM19"],
-        ["750 Coin","RM26"],
-        ["1040 Coin","RM35"],
-        ["2130 Coin","RM69"],
-        ["3250 Coin","RM103"],
-        ["4260 Coin","RM140"],
-        ["5700 Coin","RM167"],
-        ["6500 Coin","RM194"],
-        ["8950 Coin","RM256"],
-        ["12800 Coin","RM360"]
-    ],
+    android: [
+    ["130 Coin","RM6"],
+    ["300 Coin","RM12"],
+    ["550 Coin","RM19"],
+    ["750 Coin","RM26"],
+    ["1040 Coin","RM35"],
+    ["2130 Coin","RM69"],
+    ["3250 Coin","RM103"],
+    ["4260 Coin","RM140"],
+    ["5700 Coin","RM167"],
+    ["6500 Coin","RM194"],
+    ["8950 Coin","RM256"],
+    ["12800 Coin","RM360"]
+],
 
     id: []
 },
@@ -410,7 +410,9 @@ function loadItems(){
     const list = document.getElementById("list");
     list.innerHTML="";
 
-    const region = currentGame === "efootball" ? "my" : document.getElementById("region").value;
+    const region = currentGame === "efootball"
+    ? "android"
+    : document.getElementById("region").value;
 
 data[currentGame][region].forEach(function(item){
 
