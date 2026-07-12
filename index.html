@@ -217,12 +217,13 @@ Harga Murah • Proses Pantas • LEGAL
 
 <input id="server" placeholder="Server ID (MLBB sahaja)">
 
- <label>🌍 Pilih Server</label>
+ <label>🌎 Pilih Server</label>
 
-<select id="region" onchange="tukarServer()">
+<select id="region" onchange="loadItems()">
     <option value="my">🇲🇾 Malaysia</option>
     <option value="id">🇮🇩 Indonesia</option>
 </select>
+                    
     
 </div>
 
@@ -383,6 +384,13 @@ efootball: {
 function changeGame(game,el){
 
 currentGame=game;
+    const regionBox = document.getElementById("region").parentElement;
+
+if (game === "efootball") {
+    regionBox.style.display = "none";
+} else {
+    regionBox.style.display = "block";
+}
 
 document.querySelectorAll(".game").forEach(x=>x.classList.remove("active"));
 el.classList.add("active");
@@ -400,21 +408,21 @@ loadItems();
 
 function loadItems(){
 
-const list=document.getElementById("list");
+    const list = document.getElementById("list");
+    list.innerHTML="";
 
-list.innerHTML="";
+    const region = document.getElementById("region").value;
 
+    data[currentGame][region].forEach(function(item){
 
-data[currentGame].forEach(function(item){
+        list.innerHTML += `
+        <div class="item"
+        onclick="selectItem(this,'${item[0]}','${item[1]}')">
+        <b>${item[0]}</b><br>${item[1]}
+        </div>
+        `;
 
-list.innerHTML+=`
-<div class="item"
-onclick="selectItem(this,'${item[0]}','${item[1]}')">
-<b>${item[0]}</b><br>${item[1]}
-</div>
-`;
-
-});
+    });
 
 }
 
