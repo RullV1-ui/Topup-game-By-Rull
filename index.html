@@ -217,6 +217,13 @@ Harga Murah • Proses Pantas • LEGAL
 
 <input id="server" placeholder="Server ID (MLBB sahaja)">
 
+ <label>🌍 Pilih Server</label>
+
+<select id="region" onchange="tukarServer()">
+    <option value="my">🇲🇾 Malaysia</option>
+    <option value="id">🇮🇩 Indonesia</option>
+</select>
+    
 </div>
 
 <div class="card">
@@ -362,7 +369,9 @@ const list=document.getElementById("list");
 
 list.innerHTML="";
 
-data[currentGame].forEach(function(item){
+const region = document.getElementById("region").value;
+
+data[currentGame][region].forEach(function(item){
 
 list.innerHTML+=`
 <div class="item"
