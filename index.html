@@ -465,20 +465,8 @@ function changeGame(game, el) {
     loadItems();
 }
 
-    document.querySelectorAll(".game").forEach(x=>x.classList.remove("active"));
-    el.classList.add("active");
+    
 
-    document.getElementById("sumGame").innerText = gameName[game];
-
-    selectedItem = "";
-    selectedPrice = "";
-    document.getElementById("sumItem").innerText = "Belum Dipilih";
-    document.getElementById("sumPrice").innerText = "RM0";
-
-    loadItems();
-    }
-
-}
 function selectItem(el,name,price){
 
 document.querySelectorAll(".item").forEach(x=>x.classList.remove("selected"));
