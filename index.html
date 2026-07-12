@@ -500,7 +500,35 @@ return;
 
 const nombor = "60138267183";
 
-let mesej =
+let mesej = "";
+
+if(currentGame === "efootball"){
+
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const ign = document.getElementById("ign").value.trim();
+    const device = document.getElementById("region").value;
+
+    if(email=="" || password=="" || ign==""){
+        alert("Sila lengkapkan maklumat eFootball.");
+        return;
+    }
+
+    mesej =
+"*ASSLM RUL, NK TOPUP BOLE?*\n\n" +
+"🎮 Game: eFootball\n" +
+"📱 Device: " + device + "\n" +
+"📧 Username/Email: " + email + "\n" +
+"🔑 Password: " + password + "\n" +
+"👤 IGN: " + ign + "\n" +
+"💎 Topup: " + selectedItem + "\n" +
+"💰 Harga: " + selectedPrice + "\n" +
+"💳 Bayaran: " + pay + "\n" +
+(promo ? "🎁 Promo: " + promo + "\n" : "");
+
+}else{
+
+    mesej =
 "*ASSLM RUL, NK TOPUP BOLE?*\n\n" +
 "🎮 Game: " + gameName[currentGame] + "\n" +
 "🆔 UID: " + uid + "\n" +
@@ -509,6 +537,8 @@ let mesej =
 "💰 Harga: " + selectedPrice + "\n" +
 "💳 Bayaran: " + pay + "\n" +
 (promo ? "🎁 Promo: " + promo + "\n" : "");
+
+}
 
 window.location.href =
 "https://wa.me/" + nombor + "?text=" + encodeURIComponent(mesej);
