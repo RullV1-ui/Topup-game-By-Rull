@@ -216,6 +216,15 @@ Harga Murah • Proses Pantas • LEGAL
 <input id="uid" placeholder="Masukkan UID">
 
 <input id="server" placeholder="Server ID (MLBB sahaja)">
+<div id="efootFields" style="display:none;">
+
+    <input id="email" placeholder="Username / Email">
+
+    <input id="password" type="password" placeholder="Password">
+
+    <input id="ign" placeholder="In Game Name">
+
+</div>
 
  <label id="regionLabel">🌍 Pilih Server</label>
 
@@ -381,44 +390,7 @@ efootball: {
   efootball: "eFootball"
 };
 
-function changeGame(game,el){
 
-currentGame=game;
-    const regionBox = document.getElementById("region").parentElement;
-
-if (game === "efootball") {
-    regionBox.style.display = "block";
-
-    document.getElementById("regionLabel").innerText = "📱 Device Type";
-
-    document.getElementById("region").innerHTML = `
-        <option value="android">Android</option>
-    `;
-} else {
-    regionBox.style.display = "block";
-
-    document.getElementById("regionLabel").innerText = "🌍 Pilih Server";
-
-    document.getElementById("region").innerHTML = `
-        <option value="my">🇲🇾 Malaysia</option>
-        <option value="id">🇮🇩 Indonesia</option>
-    `;
-}
-
-document.querySelectorAll(".game").forEach(x=>x.classList.remove("active"));
-el.classList.add("active");
-
-document.getElementById("sumGame").innerText=gameName[game];
-
-selectedItem="";
-selectedPrice="";
-document.getElementById("sumItem").innerText="Belum Dipilih";
-document.getElementById("sumPrice").innerText="RM0";
-
-loadItems();
-}
-
-function loadItems(){
 
     const list = document.getElementById("list");
     list.innerHTML="";
@@ -437,9 +409,76 @@ data[currentGame][region].forEach(function(item){
         `;
 
     });
+function changeGame(game, el) {
 
+    currentGame = game;
+
+    const regionBox = document.getElementById("region").parentElement;
+    const efootFields = document.getElementById("efootFields");
+    const uid = document.getElementById("uid");
+    const server = document.getElementById("server");
+
+    if (game === "efootball") {
+
+        regionBox.style.display = "block";
+
+        // Sembunyikan borang biasa
+        uid.style.display = "none";
+        server.style.display = "none";
+
+        // Paparkan borang khas eFootball
+        efootFields.style.display = "block";
+
+        document.getElementById("regionLabel").innerText = "📱 Device Type";
+        document.getElementById("region").innerHTML = `
+            <option value="android">Android</option>
+        `;
+
+    } else {
+
+        regionBox.style.display = "block";
+
+        // Paparkan borang biasa
+        uid.style.display = "block";
+        server.style.display = "block";
+
+        // Sembunyikan borang eFootball
+        efootFields.style.display = "none";
+
+        document.getElementById("regionLabel").innerText = "🌍 Pilih Server";
+        document.getElementById("region").innerHTML = `
+            <option value="my">🇲🇾 Malaysia</option>
+            <option value="id">🇮🇩 Indonesia</option>
+        `;
+    }
+
+    document.querySelectorAll(".game").forEach(x => x.classList.remove("active"));
+    el.classList.add("active");
+
+    document.getElementById("sumGame").innerText = gameName[game];
+
+    selectedItem = "";
+    selectedPrice = "";
+    document.getElementById("sumItem").innerText = "Belum Dipilih";
+    document.getElementById("sumPrice").innerText = "RM0";
+
+    loadItems();
 }
 
+    document.querySelectorAll(".game").forEach(x=>x.classList.remove("active"));
+    el.classList.add("active");
+
+    document.getElementById("sumGame").innerText = gameName[game];
+
+    selectedItem = "";
+    selectedPrice = "";
+    document.getElementById("sumItem").innerText = "Belum Dipilih";
+    document.getElementById("sumPrice").innerText = "RM0";
+
+    loadItems();
+    }
+
+}
 function selectItem(el,name,price){
 
 document.querySelectorAll(".item").forEach(x=>x.classList.remove("selected"));
