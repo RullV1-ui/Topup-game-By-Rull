@@ -488,9 +488,9 @@ const server=document.getElementById("server").value.trim();
 const pay=document.getElementById("payment").value;
 const promo=document.getElementById("promo").value.trim();
 
-if(uid==""){
-alert("Sila masukkan UID.");
-return;
+if(currentGame !== "efootball" && uid==""){
+    alert("Sila masukkan UID.");
+    return;
 }
 
 if(selectedItem==""){
