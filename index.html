@@ -403,7 +403,6 @@ document.getElementById("sumItem").innerText="Belum Dipilih";
 document.getElementById("sumPrice").innerText="RM0";
 
 loadItems();
-
 }
 
 function loadItems(){
@@ -411,9 +410,9 @@ function loadItems(){
     const list = document.getElementById("list");
     list.innerHTML="";
 
-    const region = document.getElementById("region").value;
+    const region = currentGame === "efootball" ? "my" : document.getElementById("region").value;
 
-    data[currentGame][region].forEach(function(item){
+data[currentGame][region].forEach(function(item){
 
         list.innerHTML += `
         <div class="item"
