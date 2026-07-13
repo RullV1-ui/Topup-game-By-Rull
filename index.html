@@ -187,138 +187,565 @@ color:#666;
         padding: 15px;
     }
 }
-  </style>
-  </head>
+
+/* Landing Page Styles */
+.landing-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: radial-gradient(ellipse at center, #1a0505, #0a0000);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.landing-page.hide {
+    opacity: 0;
+    transform: scale(1.05);
+    pointer-events: none;
+}
+
+.landing-content {
+    max-width: 500px;
+    width: 90%;
+    padding: 40px 30px;
+    background: rgba(20, 5, 5, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 60px 60px 40px 40px;
+    border: 1px solid rgba(200, 30, 30, 0.3);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.9), 0 0 0 1px #8b000055 inset;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.landing-content::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 50% 50%, rgba(180, 20, 20, 0.1), transparent 70%);
+    animation: rotateGlow 20s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes rotateGlow {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.landing-logo {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 20px;
+}
+
+.landing-logo h1 {
+    font-size: 3.2rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #ff4444, #ff8888, #ff4444);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3s ease-in-out infinite;
+    text-shadow: 0 0 40px rgba(255, 50, 50, 0.3);
+    letter-spacing: -1px;
+}
+
+@keyframes shimmer {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.landing-greeting {
+    position: relative;
+    z-index: 1;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #f0e6e6;
+    margin: 15px 0 10px;
+    text-shadow: 0 4px 30px rgba(255, 40, 40, 0.2);
+    line-height: 1.3;
+}
+
+.landing-greeting span {
+    color: #ff6666;
+}
+
+.landing-tagline {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px 20px;
+    margin: 25px 0 30px;
+}
+
+.landing-tagline span {
+    background: rgba(180, 20, 20, 0.2);
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #ffb3b3;
+    border: 1px solid #b3000066;
+    backdrop-filter: blur(4px);
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+}
+
+.landing-tagline span:hover {
+    transform: scale(1.05);
+    background: rgba(200, 30, 30, 0.3);
+    border-color: #ff3333;
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.15);
+}
+
+.landing-loader {
+    position: relative;
+    z-index: 1;
+    margin: 25px 0 15px;
+    width: 100%;
+}
+
+.loader-track-landing {
+    width: 100%;
+    height: 6px;
+    background: #1a0a0a;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid #4a1515;
+}
+
+.loader-fill-landing {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #cc0000, #ff3333, #ff7777);
+    border-radius: 20px;
+    box-shadow: 0 0 25px #ff2a2a;
+    animation: loadProgressLanding 6s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+}
+
+@keyframes loadProgressLanding {
+    0% { width: 0%; }
+    20% { width: 20%; }
+    50% { width: 55%; }
+    80% { width: 82%; }
+    100% { width: 100%; }
+}
+
+.landing-loader-text {
+    color: #aa7a7a;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    margin-top: 12px;
+    font-weight: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.landing-loader-text .dot {
+    display: inline-block;
+    animation: dotPulseLanding 1.4s infinite;
+}
+
+.landing-loader-text .dot:nth-child(2) { animation-delay: 0.2s; }
+.landing-loader-text .dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes dotPulseLanding {
+    0%, 100% { opacity: 0.3; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+.landing-progress {
+    color: #995555;
+    font-size: 0.8rem;
+    margin-top: 6px;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+.landing-skip {
+    position: relative;
+    z-index: 1;
+    margin-top: 25px;
+    background: rgba(30, 10, 10, 0.7);
+    backdrop-filter: blur(8px);
+    border: 1px solid #5a1515;
+    color: #cc9999;
+    padding: 10px 30px;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+}
+
+.landing-skip:hover {
+    background: rgba(180, 20, 20, 0.3);
+    color: #ffffff;
+    border-color: #ff4444;
+    transform: scale(1.05);
+}
+
+/* Floating particles for landing */
+.landing-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.landing-particle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 40, 40, 0.15);
+    box-shadow: 0 0 20px #ff1a1a22;
+    animation: floatLanding linear infinite;
+}
+
+@keyframes floatLanding {
+    0% {
+        transform: translateY(100vh) scale(0.5);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-10vh) scale(1.2);
+        opacity: 0;
+    }
+}
+
+/* Sparkle */
+.landing-sparkle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #ff6666;
+    border-radius: 50%;
+    box-shadow: 0 0 15px #ff3333, 0 0 30px #ff000066;
+    pointer-events: none;
+    z-index: 1;
+    animation: sparkleLanding 2s ease-in-out forwards;
+}
+
+@keyframes sparkleLanding {
+    0% { opacity: 0; transform: scale(0) rotate(0deg); }
+    50% { opacity: 1; transform: scale(1.8) rotate(180deg); }
+    100% { opacity: 0; transform: scale(0) rotate(360deg); }
+}
+
+/* Main content hidden initially */
+.main-content {
+    display: none;
+}
+
+.main-content.show {
+    display: block;
+}
+
+@media (max-width: 480px) {
+    .landing-content {
+        padding: 30px 20px;
+        border-radius: 40px 40px 30px 30px;
+    }
+    .landing-logo h1 {
+        font-size: 2.5rem;
+    }
+    .landing-greeting {
+        font-size: 1.5rem;
+    }
+    .landing-tagline span {
+        font-size: 0.9rem;
+        padding: 6px 15px;
+    }
+    .landing-skip {
+        padding: 8px 20px;
+        font-size: 0.8rem;
+    }
+}
+</style>
+</head>
 <body>
-<video id="bg-video" autoplay muted loop playsinline preload="auto">
-    <source src="ssstik.io_@saka_x11_1783779930311.mp4" type="video/mp4">
-</video>
-<audio id="bgm" loop preload="auto">
-    <source src="ssstik.io_1783782113757.mp3" type="audio/mpeg">
-</audio>
+
+<!-- LANDING PAGE -->
+<div class="landing-page" id="landingPage">
+    <div class="landing-particles" id="landingParticles"></div>
     
-<header>
-  <h1>TOPUP GAME BY RULL STORE</h1>
-  <p>Harga Murah • Pantas • Dipercayai</p>
-</header>
-
-<div class="banner">
-🔥 KEUNTUNGAN TOPUP DISINI? 🔥<br>
-Harga Murah • Proses Pantas • LEGAL
+    <div class="landing-content">
+        <div class="landing-logo">
+            <h1>⚡ RULL STORE</h1>
+        </div>
+        
+        <div class="landing-greeting">
+            Hy👋 <span>Selamat Datang</span><br>
+            Di Game Shop By Rull
+        </div>
+        
+        <div class="landing-tagline">
+            <span>🔥 #Murah</span>
+            <span>⚖️ #Legal</span>
+            <span>🍬 #Manis²</span>
+        </div>
+        
+        <div class="landing-loader">
+            <div class="loader-track-landing">
+                <div class="loader-fill-landing" id="loaderFillLanding"></div>
+            </div>
+            <div class="landing-loader-text">
+                <span>⏳</span> Memuatkan TOPUP 
+                <span class="dot">•</span>
+                <span class="dot">•</span>
+                <span class="dot">•</span>
+            </div>
+            <div class="landing-progress" id="landingProgress">0%</div>
+        </div>
+        
+        <button class="landing-skip" id="skipLanding">⏭️ Skip & Masuk</button>
+    </div>
 </div>
 
-<div class="container">
+<!-- MAIN CONTENT -->
+<div class="main-content" id="mainContent">
+    <video id="bg-video" autoplay muted loop playsinline preload="auto">
+        <source src="ssstik.io_@saka_x11_1783779930311.mp4" type="video/mp4">
+    </video>
+    <audio id="bgm" loop preload="auto">
+        <source src="ssstik.io_1783782113757.mp3" type="audio/mpeg">
+    </audio>
+        
+    <header>
+      <h1>TOPUP GAME BY RULL STORE</h1>
+      <p>Harga Murah • Pantas • Dipercayai</p>
+    </header>
 
-<div class="card">
-<h2>🎮 Pilih Game</h2>
+    <div class="banner">
+    🔥 KEUNTUNGAN TOPUP DISINI? 🔥<br>
+    Harga Murah • Proses Pantas • LEGAL
+    </div>
 
-<div class="games">
+    <div class="container">
 
-<div class="game active" onclick="changeGame('ff',this)">
-🔥 Free Fire
+    <div class="card">
+    <h2>🎮 Pilih Game</h2>
+
+    <div class="games">
+
+    <div class="game active" onclick="changeGame('ff',this)">
+    🔥 Free Fire
+    </div>
+
+    <div class="game" onclick="changeGame('ml',this)">
+    ⚔️ Mobile Legends
+    </div>
+
+    <div class="game" onclick="changeGame('pubg',this)">
+    🎯 PUBG Mobile
+    </div>
+
+    <div class="game" onclick="changeGame('efootball',this)">
+    ⚽ eFootball
+    </div>
+
+    </div>
+    </div>
+
+    <div class="card">
+
+    <h2>👤 Maklumat Akaun</h2>
+
+    <input id="uid" placeholder="Masukkan UID">
+
+    <input id="server" placeholder="Server ID (MLBB sahaja)">
+    <div id="efootFields" style="display:none;">
+
+        <input id="email" placeholder="Username / Email">
+
+        <input id="password" type="password" placeholder="Password">
+
+        <input id="ign" placeholder="In Game Name">
+
+    </div>
+
+     <label id="regionLabel">🌍 Pilih Server</label>
+
+    <select id="region" onchange="loadItems()">
+        <option value="my">🇲🇾 Malaysia</option>
+        <option value="id">🇮🇩 Indonesia</option>
+    </select>
+                    
+        
+    </div>
+
+    <div class="card">
+
+    <h2>💎 Pilih Topup</h2>
+
+    <div class="grid" id="list"></div>
+
+    </div>
+
+    <div class="card">
+
+    <h2>💳 Kaedah Pembayaran</h2>
+
+    <h3>📷 Scan QR TNG</h3>
+
+    <h3>🖨 SS BUKTI TF</h3>
+
+    <img
+        src="IMG_20260712_112151_530.JPG"
+        alt="QR DuitNow"
+        style="width:220px; max-width:100%; display:block; margin:15px auto; border-radius:12px;">
+
+    <select id="payment">
+        <option>DuitNow QR</option>
+        <option>Touch 'n Go eWallet</option>
+        <option>Bank Transfer</option>
+    </select>
+
+    <input id="promo" placeholder="Kod Promo (Jika Ada)">
+
+    <div class="summary">
+
+    <b>Game :</b>
+    <span id="sumGame">Free Fire</span>
+
+    <br>
+
+    <b>Topup :</b>
+    <span id="sumItem">Belum Dipilih</span>
+
+    <br>
+
+    <b>Harga :</b>
+    <span id="sumPrice">RM0</span>
+
+    </div>
+
+    <button onclick="buy()">
+    🛒 BELI SEKARANG
+    </button>
+
+    </div>
+
+    <footer>
+
+    © 2026 TOPUP BY RULL
+
+    </footer>
 </div>
 
-<div class="game" onclick="changeGame('ml',this)">
-⚔️ Mobile Legends
-</div>
-
-<div class="game" onclick="changeGame('pubg',this)">
-🎯 PUBG Mobile
-</div>
-
-<div class="game" onclick="changeGame('efootball',this)">
-⚽ eFootball
-</div>
-
-</div>
-</div>
-
-<div class="card">
-
-<h2>👤 Maklumat Akaun</h2>
-
-<input id="uid" placeholder="Masukkan UID">
-
-<input id="server" placeholder="Server ID (MLBB sahaja)">
-<div id="efootFields" style="display:none;">
-
-    <input id="email" placeholder="Username / Email">
-
-    <input id="password" type="password" placeholder="Password">
-
-    <input id="ign" placeholder="In Game Name">
-
-</div>
-
- <label id="regionLabel">🌍 Pilih Server</label>
-
-<select id="region" onchange="loadItems()">
-    <option value="my">🇲🇾 Malaysia</option>
-    <option value="id">🇮🇩 Indonesia</option>
-</select>
-                
-    
-</div>
-
-<div class="card">
-
-<h2>💎 Pilih Topup</h2>
-
-<div class="grid" id="list"></div>
-
-</div>
-
-<div class="card">
-
-<h2>💳 Kaedah Pembayaran</h2>
-
-<h3>📷 Scan QR TNG</h3>
-
-<h3>🖨 SS BUKTI TF</h3>
-
-<img
-    src="IMG_20260712_112151_530.JPG"
-    alt="QR DuitNow"
-    style="width:220px; max-width:100%; display:block; margin:15px auto; border-radius:12px;">
-
-<select id="payment">
-    <option>DuitNow QR</option>
-    <option>Touch 'n Go eWallet</option>
-    <option>Bank Transfer</option>
-</select>
-
-<input id="promo" placeholder="Kod Promo (Jika Ada)">
-
-<div class="summary">
-
-<b>Game :</b>
-<span id="sumGame">Free Fire</span>
-
-<br>
-
-<b>Topup :</b>
-<span id="sumItem">Belum Dipilih</span>
-
-<br>
-
-<b>Harga :</b>
-<span id="sumPrice">RM0</span>
-
-</div>
-
-<button onclick="buy()">
-🛒 BELI SEKARANG
-</button>
-
-</div>
-
-<footer>
-
-© 2026 TOPUP BY RULL
-
-</footer>
 <script>
+// ============================================
+// LANDING PAGE LOGIC
+// ============================================
+const landingPage = document.getElementById('landingPage');
+const mainContent = document.getElementById('mainContent');
+const skipBtn = document.getElementById('skipLanding');
+const landingProgress = document.getElementById('landingProgress');
 
+// Create particles for landing
+const particlesContainer = document.getElementById('landingParticles');
+for (let i = 0; i < 30; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'landing-particle';
+    const size = 5 + Math.random() * 25;
+    particle.style.width = size + 'px';
+    particle.style.height = size + 'px';
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.animationDuration = 12 + Math.random() * 20 + 's';
+    particle.style.animationDelay = Math.random() * 15 + 's';
+    particle.style.opacity = 0.15 + Math.random() * 0.25;
+    particle.style.background = `radial-gradient(circle, rgba(255, ${40 + Math.random()*60}, ${40 + Math.random()*60}, 0.4), rgba(150,0,0,0.05))`;
+    particlesContainer.appendChild(particle);
+}
+
+// Create sparkles
+function createLandingSparkle() {
+    const sparkle = document.createElement('div');
+    sparkle.className = 'landing-sparkle';
+    sparkle.style.left = Math.random() * 100 + '%';
+    sparkle.style.top = Math.random() * 100 + '%';
+    sparkle.style.width = (2 + Math.random() * 5) + 'px';
+    sparkle.style.height = sparkle.style.width;
+    document.querySelector('.landing-content').appendChild(sparkle);
+    
+    setTimeout(() => {
+        sparkle.remove();
+    }, 2000);
+}
+setInterval(createLandingSparkle, 350);
+
+// Progress counter
+let progress = 0;
+const progressInterval = setInterval(() => {
+    progress += 1;
+    if (progress <= 100) {
+        landingProgress.textContent = progress + '%';
+    }
+    if (progress >= 100) {
+        clearInterval(progressInterval);
+    }
+}, 60);
+
+// Function to show main content
+function showMainContent() {
+    landingPage.classList.add('hide');
+    mainContent.classList.add('show');
+    // Trigger background music
+    const bgm = document.getElementById('bgm');
+    bgm.volume = 0.5;
+    bgm.play().catch(function(err) {
+        console.log("Audio play failed:", err);
+    });
+    // Load items
+    loadItems();
+}
+
+// Auto redirect after 6 seconds
+const redirectTimer = setTimeout(showMainContent, 6000);
+
+// Skip button
+skipBtn.addEventListener('click', function() {
+    clearTimeout(redirectTimer);
+    clearInterval(progressInterval);
+    showMainContent();
+});
+
+// Click on landing content to skip
+document.querySelector('.landing-content').addEventListener('click', function(e) {
+    if (e.target.tagName !== 'BUTTON') {
+        clearTimeout(redirectTimer);
+        clearInterval(progressInterval);
+        showMainContent();
+    }
+});
+
+// ============================================
+// MAIN CONTENT LOGIC (Original)
+// ============================================
 let currentGame="ff";
 let selectedItem="";
 let selectedPrice="";
@@ -326,7 +753,7 @@ let selectedPrice="";
 const data = {
     ff: {
         my: [
-            ["100💎", "RM4.20"],
+            ["100💎", "RM4"],
             ["310💎", "RM12"],
             ["520💎", "RM19"],
             ["1060💎", "RM36"],
@@ -347,13 +774,13 @@ const data = {
     },
     ml: {
         my: [
-            ["42💎", "RM3.60"],
-            ["70💎", "RM5.20"],
-            ["140💎", "RM11.00"],
-            ["284💎", "RM21.00"],
-            ["355💎", "RM25.20"],
-            ["429💎", "RM31.00"],
-            ["716💎", "RM52.00"],
+            ["42💎", "RM3.00"],
+            ["70💎", "RM4.90"],
+            ["140💎", "RM9.70"],
+            ["284💎", "RM19.60"],
+            ["355💎", "RM24.55"],
+            ["429💎", "RM30.00"],
+            ["716💎", "RM50.00"],
             ["1446💎", "RM98.89"]
         ],
         id: [
@@ -413,16 +840,15 @@ const gameName = {
 
 function loadItems() {
     const list = document.getElementById("list");
+    if (!list) return;
     list.innerHTML = "";
 
     let region = document.getElementById("region").value;
     
-    // Untuk eFootball, gunakan 'android' sebagai key
     if (currentGame === "efootball") {
         region = "android";
     }
 
-    // Cek apakah data tersedia
     if (!data[currentGame] || !data[currentGame][region]) {
         list.innerHTML = "<div style='color:white;text-align:center;padding:20px;'>Tiada item untuk server ini</div>";
         return;
@@ -440,7 +866,6 @@ function loadItems() {
 function changeGame(game, el) {
     currentGame = game;
 
-    const regionBox = document.getElementById("region").parentElement;
     const efootFields = document.getElementById("efootFields");
     const uid = document.getElementById("uid");
     const server = document.getElementById("server");
@@ -448,24 +873,16 @@ function changeGame(game, el) {
     const regionLabel = document.getElementById("regionLabel");
 
     if (game === "efootball") {
-        // Sembunyikan UID dan Server
         uid.style.display = "none";
         server.style.display = "none";
-        
-        // Paparkan borang eFootball
         efootFields.style.display = "block";
-        
         regionLabel.innerText = "📱 Device Type";
         regionSelect.innerHTML = `<option value="android">Android</option>`;
         regionSelect.value = "android";
     } else {
-        // Paparkan UID dan Server
         uid.style.display = "block";
         server.style.display = "block";
-        
-        // Sembunyikan borang eFootball
         efootFields.style.display = "none";
-        
         regionLabel.innerText = "🌍 Pilih Server";
         regionSelect.innerHTML = `
             <option value="my">🇲🇾 Malaysia</option>
@@ -474,20 +891,16 @@ function changeGame(game, el) {
         regionSelect.value = "my";
     }
 
-    // Update active class
     document.querySelectorAll(".game").forEach(x => x.classList.remove("active"));
     el.classList.add("active");
 
-    // Update summary
     document.getElementById("sumGame").innerText = gameName[game];
 
-    // Reset selection
     selectedItem = "";
     selectedPrice = "";
     document.getElementById("sumItem").innerText = "Belum Dipilih";
     document.getElementById("sumPrice").innerText = "RM0";
 
-    // Load items
     loadItems();
 }
 
@@ -558,28 +971,27 @@ function buy() {
         "https://wa.me/" + nombor + "?text=" + encodeURIComponent(mesej);
 }
 
-// Load items on page load
-loadItems();
-
 // Background Music - Auto play with user interaction
-const bgm = document.getElementById("bgm");
-bgm.volume = 0.5;
-
-// Try to play audio on page load
 document.addEventListener("click", function() {
-    bgm.play().catch(function(err) {
-        console.log("Audio play failed:", err);
-    });
+    const bgm = document.getElementById("bgm");
+    if (bgm) {
+        bgm.play().catch(function(err) {
+            console.log("Audio play failed:", err);
+        });
+    }
 });
 
-// Also try on touch events for mobile
 document.addEventListener("touchstart", function() {
-    bgm.play().catch(function(err) {
-        console.log("Audio play failed:", err);
-    });
+    const bgm = document.getElementById("bgm");
+    if (bgm) {
+        bgm.play().catch(function(err) {
+            console.log("Audio play failed:", err);
+        });
+    }
 });
 
+// Load items when main content is shown (already called in showMainContent)
 </script>
 </body>
-        </html>
+</html>
 
