@@ -545,7 +545,7 @@ color:#666;
         
         <div class="landing-greeting">
             Hy👋 <span>Selamat Datang</span><br>
-            Di Game Shop By Rull
+            Di Game  Shop By Rull
         </div>
         
         <div class="landing-tagline">
@@ -717,7 +717,7 @@ let isMusicPlaying = true;
 // Set volume
 landingAudio.volume = 0.5;
 
-// Try to play audio on landing page
+// === AUTO PLAY LANDING AUDIO ===
 function playLandingAudio() {
     landingAudio.play().then(() => {
         isMusicPlaying = true;
@@ -725,20 +725,32 @@ function playLandingAudio() {
         musicIcon.classList.remove('muted');
     }).catch(function(err) {
         console.log("Audio play failed:", err);
-        // Will retry on user interaction
+        // Retry on user interaction if needed, but we have a global click listener
     });
 }
 
-// Play audio on page load with user interaction
+// Attempt to play audio as soon as possible
+// Some browsers allow autoplay if the user has interacted with the page before.
+// We will use a combination of page load and user click.
+window.addEventListener('load', function() {
+    // Try to play immediately after load
+    setTimeout(playLandingAudio, 500);
+});
+
+// Also play on any user interaction to comply with autoplay policies
 document.addEventListener('click', function() {
     if (landingPage.classList.contains('hide') === false) {
-        playLandingAudio();
+        if (!isMusicPlaying) {
+            playLandingAudio();
+        }
     }
 });
 
 document.addEventListener('touchstart', function() {
     if (landingPage.classList.contains('hide') === false) {
-        playLandingAudio();
+        if (!isMusicPlaying) {
+            playLandingAudio();
+        }
     }
 });
 
@@ -1070,4 +1082,3 @@ function buy() {
 </script>
 </body>
 </html>
-
