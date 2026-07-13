@@ -528,8 +528,8 @@ color:#666;
 
 <!-- LANDING PAGE -->
 <div class="landing-page" id="landingPage">
-    <!-- Audio untuk landing page -->
-    <audio id="landingAudio" loop preload="auto">
+    <!-- Audio untuk landing page - PLAY AUTOMATIC -->
+    <audio id="landingAudio" loop preload="auto" autoplay>
         <source src="ssstik.io_1783782113757.mp3" type="audio/mpeg">
     </audio>
     
@@ -545,7 +545,7 @@ color:#666;
         
         <div class="landing-greeting">
             Hy👋 <span>Selamat Datang</span><br>
-            Di Game  Shop By Rull
+            Di Game Shop By Rull
         </div>
         
         <div class="landing-tagline">
@@ -717,41 +717,46 @@ let isMusicPlaying = true;
 // Set volume
 landingAudio.volume = 0.5;
 
-// === AUTO PLAY LANDING AUDIO ===
-function playLandingAudio() {
+// --- AUTO PLAY AUDIO ---
+// Cuba mainkan audio automatik sebaik sahaja halaman dimuat
+function autoPlayAudio() {
     landingAudio.play().then(() => {
         isMusicPlaying = true;
         musicIcon.textContent = '🔊';
         musicIcon.classList.remove('muted');
+        console.log("Audio bermain secara automatik!");
     }).catch(function(err) {
-        console.log("Audio play failed:", err);
-        // Retry on user interaction if needed, but we have a global click listener
+        console.log("Auto-play audio gagal:", err);
+        // Cuba lagi selepas sebarang interaksi
+        document.addEventListener('click', playAudioOnInteraction, { once: true });
+        document.addEventListener('touchstart', playAudioOnInteraction, { once: true });
     });
 }
 
-// Attempt to play audio as soon as possible
-// Some browsers allow autoplay if the user has interacted with the page before.
-// We will use a combination of page load and user click.
+function playAudioOnInteraction() {
+    landingAudio.play().then(() => {
+        isMusicPlaying = true;
+        musicIcon.textContent = '🔊';
+        musicIcon.classList.remove('muted');
+        console.log("Audio bermain selepas interaksi!");
+    }).catch(function(err) {
+        console.log("Audio masih gagal:", err);
+    });
+}
+
+// Jalankan auto play sebaik sahaja halaman siap dimuat
 window.addEventListener('load', function() {
-    // Try to play immediately after load
-    setTimeout(playLandingAudio, 500);
-});
-
-// Also play on any user interaction to comply with autoplay policies
-document.addEventListener('click', function() {
-    if (landingPage.classList.contains('hide') === false) {
-        if (!isMusicPlaying) {
-            playLandingAudio();
+    // Cuba mainkan audio
+    autoPlayAudio();
+    
+    // Juga cuba selepas 500ms sebagai langkah kedua
+    setTimeout(function() {
+        if (landingAudio.paused) {
+            landingAudio.play().catch(function(e) {
+                console.log("Auto play timeout gagal:", e);
+            });
         }
-    }
-});
-
-document.addEventListener('touchstart', function() {
-    if (landingPage.classList.contains('hide') === false) {
-        if (!isMusicPlaying) {
-            playLandingAudio();
-        }
-    }
+    }, 500);
 });
 
 // Toggle music
@@ -763,7 +768,13 @@ musicIcon.addEventListener('click', function(e) {
         musicIcon.textContent = '🔇';
         musicIcon.classList.add('muted');
     } else {
-        playLandingAudio();
+        landingAudio.play().then(() => {
+            isMusicPlaying = true;
+            musicIcon.textContent = '🔊';
+            musicIcon.classList.remove('muted');
+        }).catch(function(err) {
+            console.log("Play gagal:", err);
+        });
     }
 });
 
