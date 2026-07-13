@@ -456,6 +456,36 @@ color:#666;
     100% { opacity: 0; transform: scale(0) rotate(360deg); }
 }
 
+/* Music control icon */
+.music-icon {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    z-index: 10;
+    color: rgba(255, 200, 200, 0.6);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: rgba(0,0,0,0.3);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(200, 50, 50, 0.2);
+}
+
+.music-icon:hover {
+    color: #ff6666;
+    background: rgba(200, 30, 30, 0.2);
+    transform: scale(1.1);
+}
+
+.music-icon.muted {
+    opacity: 0.4;
+}
+
 /* Main content hidden initially */
 .main-content {
     display: none;
@@ -484,6 +514,13 @@ color:#666;
         padding: 8px 20px;
         font-size: 0.8rem;
     }
+    .music-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
+        top: 10px;
+        right: 12px;
+    }
 }
 </style>
 </head>
@@ -491,11 +528,19 @@ color:#666;
 
 <!-- LANDING PAGE -->
 <div class="landing-page" id="landingPage">
+    <!-- Audio untuk landing page -->
+    <audio id="landingAudio" loop preload="auto">
+        <source src="ssstik.io_1783782113757.mp3" type="audio/mpeg">
+    </audio>
+    
     <div class="landing-particles" id="landingParticles"></div>
+    
+    <!-- Music control icon -->
+    <div class="music-icon" id="musicIcon" title="Toggle Music">🔊</div>
     
     <div class="landing-content">
         <div class="landing-logo">
-            <h1>⚡ RULL STORE</h1>
+            <h1>⚡ GAME SHOP BY RULL</h1>
         </div>
         
         <div class="landing-greeting">
@@ -665,6 +710,50 @@ const landingPage = document.getElementById('landingPage');
 const mainContent = document.getElementById('mainContent');
 const skipBtn = document.getElementById('skipLanding');
 const landingProgress = document.getElementById('landingProgress');
+const landingAudio = document.getElementById('landingAudio');
+const musicIcon = document.getElementById('musicIcon');
+let isMusicPlaying = true;
+
+// Set volume
+landingAudio.volume = 0.5;
+
+// Try to play audio on landing page
+function playLandingAudio() {
+    landingAudio.play().then(() => {
+        isMusicPlaying = true;
+        musicIcon.textContent = '🔊';
+        musicIcon.classList.remove('muted');
+    }).catch(function(err) {
+        console.log("Audio play failed:", err);
+        // Will retry on user interaction
+    });
+}
+
+// Play audio on page load with user interaction
+document.addEventListener('click', function() {
+    if (landingPage.classList.contains('hide') === false) {
+        playLandingAudio();
+    }
+});
+
+document.addEventListener('touchstart', function() {
+    if (landingPage.classList.contains('hide') === false) {
+        playLandingAudio();
+    }
+});
+
+// Toggle music
+musicIcon.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (isMusicPlaying) {
+        landingAudio.pause();
+        isMusicPlaying = false;
+        musicIcon.textContent = '🔇';
+        musicIcon.classList.add('muted');
+    } else {
+        playLandingAudio();
+    }
+});
 
 // Create particles for landing
 const particlesContainer = document.getElementById('landingParticles');
@@ -712,14 +801,20 @@ const progressInterval = setInterval(() => {
 
 // Function to show main content
 function showMainContent() {
+    // Stop landing audio
+    landingAudio.pause();
+    landingAudio.currentTime = 0;
+    
     landingPage.classList.add('hide');
     mainContent.classList.add('show');
-    // Trigger background music
+    
+    // Play background music for main content
     const bgm = document.getElementById('bgm');
     bgm.volume = 0.5;
     bgm.play().catch(function(err) {
         console.log("Audio play failed:", err);
     });
+    
     // Load items
     loadItems();
 }
@@ -734,9 +829,9 @@ skipBtn.addEventListener('click', function() {
     showMainContent();
 });
 
-// Click on landing content to skip
+// Click on landing content to skip (except music icon)
 document.querySelector('.landing-content').addEventListener('click', function(e) {
-    if (e.target.tagName !== 'BUTTON') {
+    if (e.target.tagName !== 'BUTTON' && e.target.id !== 'musicIcon' && e.target.closest('.music-icon') === null) {
         clearTimeout(redirectTimer);
         clearInterval(progressInterval);
         showMainContent();
@@ -970,25 +1065,6 @@ function buy() {
     window.location.href =
         "https://wa.me/" + nombor + "?text=" + encodeURIComponent(mesej);
 }
-
-// Background Music - Auto play with user interaction
-document.addEventListener("click", function() {
-    const bgm = document.getElementById("bgm");
-    if (bgm) {
-        bgm.play().catch(function(err) {
-            console.log("Audio play failed:", err);
-        });
-    }
-});
-
-document.addEventListener("touchstart", function() {
-    const bgm = document.getElementById("bgm");
-    if (bgm) {
-        bgm.play().catch(function(err) {
-            console.log("Audio play failed:", err);
-        });
-    }
-});
 
 // Load items when main content is shown (already called in showMainContent)
 </script>
